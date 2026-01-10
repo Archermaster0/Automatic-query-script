@@ -2,10 +2,18 @@
   "apps": [
     {
       "name": "my-query",
-      "script": "./request.js",
+      "script": "./request-1JF.js",
       "merge_logs": true, 
       "out_file": "./logs/out.log", 
       "error_file": "./logs/err.log", 
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    },
+    {
+      "name": "my-query-1JF",
+      "script": "./request-1JF.js",
+      "merge_logs": true, 
+      "out_file": "./logs/out-1JF.log", 
+      "error_file": "./logs/err-1JF.log", 
       "log_date_format": "YYYY-MM-DD HH:mm Z"
     }
   ]

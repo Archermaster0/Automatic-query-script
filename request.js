@@ -96,6 +96,7 @@ const fetchAndSaveTable = async () => {
     if (response.status === 200) {
       // 提取表格内容
       const tableContent = extractTable(response.data);
+      console.log("tableContent:",tableContent);
        if (tableContent === 'Not Login') {
           console.log('请先登录')
           return
