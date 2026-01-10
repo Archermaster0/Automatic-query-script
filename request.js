@@ -4,10 +4,13 @@ const { JSDOM } = require("jsdom") //html内容处理
 const nodemailer = require("nodemailer") //邮件发送
 
 const administrator = ['1311211019@qq.com', '630701218@qq.com'] //管理员邮箱  接收报错邮件
-const recipientArr = ['1311211019@qq.com', '630701218@qq.com'] //收件人邮箱
-const sendMessage = '1000HD 又来新订单啦! 赶快去查看吧!好的哦'  //发送信息内容
+const recipientArr = ['630701218@qq.com','604020681@qq.com','617847527@qq.com','2050386539@qq.com','515280877@qq.com'] //收件人邮箱
+const sendMessage = '1000HD 又来新订单啦! 赶快去查看吧!'  //发送信息内容
 const titleMessage = '下看板啦' //邮件标题
-const intervalTime = 3000  //运行间隔时间 单位是毫秒
+const intervalTime = 300000  //运行间隔时间 单位是毫秒
+
+// 定义 Cookies（会话保持的关键）
+const cookies = "JSESSIONID=5C4C25C349A13A7DF61ACF093D64B66A; cookiesession1=678B2875E486719125D794C10B3AE6B3; JSESSIONID=A1292D4983C2815E42D3026AFD1A0154";
 
 // 定义目标 URL 和请求头
 const url = "https://les.mychery.com/lesuppl/supplierreceive/jit_receive.action"
@@ -30,10 +33,8 @@ let formatDateTime = function (date) {
   }
 }
 
-let date = new Date()
-const { time, dayTime } = formatDateTime(date)
-
-
+let time
+let dayTime
 
 const headers = {
   Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -63,17 +64,15 @@ const data = new URLSearchParams({
   "query.queryCondition.note4": "",
   "query.queryCondition.deliveryRecType": "",
 });
-// 定义 Cookies（会话保持的关键）
-const cookies = "JSESSIONID=B9C837B51DF22A455B9FB9AAE6043C11; cookiesession1=678B287C366793980B7EDFBE2511376F";
+
 // 提取表格内容的函数
 const extractTable = (htmlContent) => {
   const dom = new JSDOM(htmlContent)
   const table = dom.window.document.querySelector("table#idTable")
   if (!table) {
-    console.log('请先登录')
     //发送报错邮件
-    // sendNotification(administrator, '报错信息', '请重新登录, 并更新cookie')
-    return
+    sendNotification(administrator, '报错信息', '请重新登录, 并更新cookie')
+    return 'Not Login'
   }
   if (table) {
     return table.outerHTML; // 返回表格的 HTML 字符串
@@ -83,6 +82,9 @@ const extractTable = (htmlContent) => {
 }
 // 发送 POST 请求并处理响应
 const fetchAndSaveTable = async () => {
+  let date = new Date()
+  time = formatDateTime(date).time
+  dayTime = formatDateTime(date).dayTime
   try {
     const response = await axios.post(url, data.toString(), {
       headers: {
@@ -94,6 +96,10 @@ const fetchAndSaveTable = async () => {
     if (response.status === 200) {
       // 提取表格内容
       const tableContent = extractTable(response.data);
+       if (tableContent === 'Not Login') {
+          console.log('请先登录')
+          return
+       }
       //如果表格内容为空
       if (tableContent === 'Not Found') {
         console.log('查询成功  暂无数据')
