@@ -67,7 +67,7 @@ const extractTable = (htmlContent) => {
   const table = dom.window.document.querySelector("table#idTable");
   if (!table) {
     //发送报错邮件
-    sendNotification(administrator, "报错信息", "请重新登录, 并更新cookie");
+    sendNotification(administrator, "1JF 报错信息", "请重新登录, 并更新cookie");
     return "Not Login";
   }
   const tbody = table.getElementsByTagName("tbody")[0];
@@ -128,7 +128,7 @@ const fetchAndSaveTable = async () => {
     }
   } catch (error) {
     //发送报错邮件
-    // sendNotification(administrator, '报错信息', error.message)
+    // sendNotification(administrator, '1JF 报错信息', error.message)
     console.error("Error fetching or processing data:", error.message);
   }
 };
@@ -148,7 +148,7 @@ const getDataAndProcess = async (newData) => {
           return;
         }
         //发送报错邮件
-        sendNotification(administrator, "报错信息", err);
+        sendNotification(administrator, "1JF 报错信息", err);
       }
       let oldFormData = JSON.parse(data); //获得之前的数据
       //对数据进行比对 获得添加的新数据
@@ -165,7 +165,7 @@ const getDataAndProcess = async (newData) => {
     });
   } catch (error) {
     //发送报错邮件
-    sendNotification(administrator, "报错信息", error.message);
+    sendNotification(administrator, "1JF 报错信息", error.message);
     console.log(error);
   }
 };
