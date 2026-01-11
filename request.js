@@ -4,13 +4,13 @@ const { JSDOM } = require("jsdom") //html内容处理
 const nodemailer = require("nodemailer") //邮件发送
 
 const administrator = ['1311211019@qq.com', '630701218@qq.com'] //管理员邮箱  接收报错邮件
-const recipientArr = ['630701218@qq.com','604020681@qq.com','617847527@qq.com','2050386539@qq.com','515280877@qq.com'] //收件人邮箱
+const recipientArr = ['630701218@qq.com', '604020681@qq.com', '617847527@qq.com', '2050386539@qq.com', '515280877@qq.com'] //收件人邮箱
 const sendMessage = '1000HD 又来新订单啦! 赶快去查看吧!'  //发送信息内容
 const titleMessage = '下看板啦' //邮件标题
 const intervalTime = 300000  //运行间隔时间 单位是毫秒
 
 // 定义 Cookies（会话保持的关键）
-const cookies = "JSESSIONID=5C4C25C349A13A7DF61ACF093D64B66A; cookiesession1=678B2875E486719125D794C10B3AE6B3; JSESSIONID=A1292D4983C2815E42D3026AFD1A0154";
+const cookies = "JSESSIONID=E110DBC596245EED38B8B74E7D6FCBFB; cookiesession1=678B2875E486719125D794C10B3AE6B3; JSESSIONID=82F5DBFAFD7B321DDE167F788FD02FB2";
 
 // 定义目标 URL 和请求头
 const url = "https://les.mychery.com/lesuppl/supplierreceive/jit_receive.action"
@@ -96,11 +96,10 @@ const fetchAndSaveTable = async () => {
     if (response.status === 200) {
       // 提取表格内容
       const tableContent = extractTable(response.data);
-      console.log("tableContent:",tableContent);
-       if (tableContent === 'Not Login') {
-          console.log('请先登录')
-          return
-       }
+      if (tableContent === 'Not Login') {
+        console.log('请先登录')
+        return
+      }
       //如果表格内容为空
       if (tableContent === 'Not Found') {
         console.log('查询成功  暂无数据')

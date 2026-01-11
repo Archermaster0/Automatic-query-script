@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "my-query",
-      "script": "./request-1JF.js",
+      "script": "./request.js",
       "merge_logs": true, 
       "out_file": "./logs/out.log", 
       "error_file": "./logs/err.log", 

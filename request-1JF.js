@@ -22,7 +22,7 @@ const partNumber = 'F4J16-1002015AC'; // 目标零件编号
 
 // 定义 Cookies（会话保持的关键
 const cookies =
-  "JSESSIONID=3531127EBD1E6DC597D91811ACEA6879; cookiesession1=678B287C3C800F9042CAF23740145D38";
+  "JSESSIONID=E110DBC596245EED38B8B74E7D6FCBFB; cookiesession1=678B2875E486719125D794C10B3AE6B3; JSESSIONID=82F5DBFAFD7B321DDE167F788FD02FB2";
 
 // 定义目标 URL 和请求头
 const url = "https://les.mychery.com/lesuppl/pullmanage/materal_query.action";
@@ -65,13 +65,13 @@ const headers = {
 const extractTable = (htmlContent) => {
   const dom = new JSDOM(htmlContent);
   const table = dom.window.document.querySelector("table#idTable");
-  const tbody = table.getElementsByTagName("tbody")[0];
-  const hasData = tbody.getElementsByTagName("tr").length > 0;
   if (!table) {
     //发送报错邮件
     sendNotification(administrator, "报错信息", "请重新登录, 并更新cookie");
     return "Not Login";
   }
+  const tbody = table.getElementsByTagName("tbody")[0];
+  const hasData = tbody.getElementsByTagName("tr").length > 0;
   // table存在并且有数据
   if (table && hasData) {
     return table.outerHTML; // 返回表格的 HTML 字符串
