@@ -8,12 +8,12 @@ const nodemailer = require("nodemailer"); //邮件发送
 
 const administrator = ["1311211019@qq.com", "630701218@qq.com"]; //管理员邮箱  接收报错邮件
 const recipientArr = [
-  // "630701218@qq.com",
-  // "604020681@qq.com",
-  // "617847527@qq.com",
-  // "2050386539@qq.com",
-  // "515280877@qq.com",
-  "1311211019@qq.com",
+  "630701218@qq.com",
+  "604020681@qq.com",
+  "617847527@qq.com",
+  "2050386539@qq.com",
+  "515280877@qq.com",
+  // "1311211019@qq.com",
 ]; //收件人邮箱
 const sendMessage = "1JF 又来新订单啦! 赶快去查看吧!"; // 发送信息内容
 const titleMessage = "下看板啦"; // 邮件标题
