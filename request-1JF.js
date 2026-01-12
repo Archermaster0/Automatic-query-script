@@ -74,7 +74,7 @@ const extractTable = (htmlContent) => {
   const hasData = tbody.getElementsByTagName("tr").length > 0;
   // table存在并且有数据
   if (table && hasData) {
-    return table.outerHTML; // 返回表格的 HTML 字符串
+    return table.outerHTML; // 返回表格的 HTML 字符串 
   } else {
     return "Not Found";
   }
@@ -135,11 +135,11 @@ const fetchAndSaveTable = async () => {
 //数据获取并处理
 const getDataAndProcess = async (newData) => {
   try {
-    fs.readFile("data_warehouse.json", "utf-8", (err, data) => {
+    fs.readFile("data_warehouse_1JF.json", "utf-8", (err, data) => {
       if (err) {
         if (err.errno === -4058) {
           fs.writeFileSync(
-            "data_warehouse.json",
+            "data_warehouse_1JF.json",
             JSON.stringify(newData),
             "utf-8"
           );
@@ -158,7 +158,7 @@ const getDataAndProcess = async (newData) => {
       }
 
       //将新数据写入文件
-      fs.writeFileSync("data_warehouse.json", JSON.stringify(newData), "utf-8");
+      fs.writeFileSync("data_warehouse_1JF.json", JSON.stringify(newData), "utf-8");
 
       //发送邮件
       sendNotification(recipientArr, titleMessage, sendMessage);

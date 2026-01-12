@@ -71,13 +71,16 @@ const extractTable = (htmlContent) => {
   const table = dom.window.document.querySelector("table#idTable")
   if (!table) {
     //发送报错邮件
-    sendNotification(administrator, '报错信息', '请重新登录, 并更新cookie')
-    return 'Not Login'
+    sendNotification(administrator, "1JF 报错信息", "请重新登录, 并更新cookie");
+    return "Not Login";
   }
-  if (table) {
+  const tbody = table.getElementsByTagName("tbody")[0];
+  const hasData = tbody.getElementsByTagName("tr").length > 0;
+  // table存在并且有数据
+  if (table && hasData) {
     return table.outerHTML; // 返回表格的 HTML 字符串
   } else {
-    return "Not Found"
+    return "Not Found";
   }
 }
 // 发送 POST 请求并处理响应
@@ -127,6 +130,7 @@ const getDataAndProcess = async (newData) => {
         if (err.errno === -4058) {
           fs.writeFileSync('data_warehouse.json', JSON.stringify(newData), "utf-8")
           console.log('数据库创建成功')
+          sendNotification(recipientArr, titleMessage, sendMessage); // 首次启动脚本的时候, 可以选择发送邮件, 也可以不发送
           return
         }
         //发送报错邮件
